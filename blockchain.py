@@ -15,7 +15,7 @@ class Blockchain(object):
         self.new_block(previous_hash=1, proof=100)
 
 
-    def new_block(self):
+    def new_block(self, proof, previous_hash=None):
         """
         Create a new Block in the Blockchain
         :param proof: <int> The proof given by the Proof of Work algorithm
@@ -38,7 +38,7 @@ class Blockchain(object):
         return block
 
     
-    def new_transaction(self):
+    def new_transaction(self, sender, recipient, amount):
         # Adds a new transaction to the list of transactions
         self.current_transactions.append({
             'sender': sender,
@@ -74,7 +74,7 @@ class Blockchain(object):
         :return: <bool> True if correct, False if not.
         """
 
-        guess = f'{last_proof}{proof}'.encode()
+        guess = '{last_proof}{proof}'.format(last_proof=last_proof, proof=proof).encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
 
@@ -150,7 +150,7 @@ def new_transaction():
     # Create a new Transaction
     index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
 
-    response = {'message': f'Transaction will be added to Block {index}'}
+    response = {'message': 'Transaction will be added to Block {index}'.format(index=index)}
     return jsonify(response), 201
 
 
