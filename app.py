@@ -70,5 +70,12 @@ def full_chain():
     }
     return jsonify(response), 200
 
+# TODO: 
+# 1, Transaction class and TXHandler
+# 2, UTXO information
+# 3, Neighbor detection and P2P communication
+# 4, Try deploy on Heroku
+# 5, Fix block validation process, not just pick the longest one
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
