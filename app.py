@@ -1,6 +1,7 @@
 from uuid import uuid4
 from flask import Flask, jsonify, request, render_template
 from Blockchain import Blockchain
+import os
 
 # Main App
 # Instantiate our Node
@@ -78,4 +79,4 @@ def full_chain():
 # 5, Fix block validation process, not just pick the longest one
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT",5000))
