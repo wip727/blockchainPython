@@ -6,7 +6,7 @@ class Transaction(object):
             self.outputIndex = outputIndex
             self.signature = []
 
-        def addSignature(sig):
+        def addSignature(self, sig):
             if sig:
                 self.signature = sig 
             else:
@@ -24,7 +24,7 @@ class Transaction(object):
         self.outputs = []
         self.hash = str.encode("")
 
-    def getRawDataToSign(index):
+    def getRawDataToSign(self, index):
         if index > len(self.inputs):
             return
 
@@ -53,52 +53,56 @@ class Transaction(object):
 
         return sigData
 
+    def addSignature(self, sig, index):
+        inputToSign = self.inputs[index];
+        inputToSign.addSignature(sig);
+
     # TO DO: getRawTx
     # TO DO: finalize
 
-    def setHash(h):
+    def setHash(self, h):
         self.hash = h
 
-    def getHash():
+    def getHash(self):
         return self.hash
 
     # Transaction input/output setters and getters
 
-    def addInput(prevTxHash, outputIndex):
+    def addInput(self, prevTxHash, outputIndex):
         txInput = Input(prevTxHash, outputIndex)
         self.inputs.append(txInput)
 
-    def addOutput(value, address):
+    def addOutput(self, value, address):
         txOutput = Output(value, address)
         self.outputs.append(txOutput)
 
-    def removeInput(index):
+    def removeInput(self, index):
         del self.inputs[index]
 
     # TO DO: removeInput by UTXO ut
 
-    def getInputs():
+    def getInputs(self):
         return self.inputs
 
-    def getOutputs():
+    def getOutputs(self):
         return self.outputs
 
-    def getInput(index):
+    def getInput(self, index):
         if index < len(self.inputs):
             return self.inputs[index]
 
         return None
 
-    def getOutput(index):
+    def getOutput(self, index):
         if index < len(self.outputs):
             return self.outputs[index]
 
         return None
 
-    def numInputs():
+    def numInputs(self):
         return len(self.inputs)
 
-    def numOutputs():
+    def numOutputs(self):
         return len(self.outputs)
 
 
